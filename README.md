@@ -10,9 +10,22 @@ If you want to use your own code, go ahead and replace the `src` folder of this 
 Once you've copied over these files, run `npm install` followed by `npm run dev`. Verify that no errors appear in your browser console or terminal, and that your app functions the same as it did in the last challenge.
 
 ## The Section Page
-The Section Page will be used to display articles that belong to a specific section (specifically, "World", "Science",  or "Books").  The Section Page should be loaded when a user clicks on one of these options in the top navigation.
+The Section Page will be used to display articles that belong to a specific section. The Section Page should be loaded when a user clicks on one of these options in the top navigation.
 
-The route that should display a section page should be `/sections/:sectionName`, where the `:sectionName` parameter would be one of the supported sections (listed above). For example, Clicking on the "World" link in the top navigation would redirect to http://localhost:5173/sections/world - this page would only display articles whose "section" property is set to "world".
+For today, because we have a small dataset the only section we will be able to fill is the `ask` section. 
+
+> when a user clicks on `ask` it should filter all the articles based on its `ask_hn` tag. (you will need to edit the previous code and grab the `_tags` when importing the articles into state )
+
+```json
+  "_tags": [
+      "story",
+      "author_CM30",
+      "story_33691474",
+      "ask_hn"
+    ],
+```
+
+The route that should display a section page should be `/sections/:sectionName`, where the `:sectionName` parameter would be one of the supported sections (ask). For example, Clicking on the "ask" link in the top navigation would redirect to http://localhost:5173/sections/ask - this page would only display articles whose `_tags` property contains `ask_hn`.
 
 To accomplish this, you will need to:
 
@@ -22,7 +35,7 @@ To accomplish this, you will need to:
 4. Within `SectionPage.js`, utilize the `filter()` function to retrieve articles by a specific section, and store them in a state value (`articles`). Remember, we'll be using `useEffect` here, just like we did for our HomePage component. 
 5. Pass `articles` into the `<ArticleList>` component, thereby rendering the `ArticleList` with articles for the desired section. 
 
-Attempt to navigate to **http://localhost:5173/#/sections/world**, and confirm that this is showing you the appropriate content. We should only see news articles that have a section value of "world".
+Attempt to navigate to **http://localhost:5173/#/sections/ask**, and confirm that this is showing you the appropriate content. We should only see news articles that have a tag value of `ask_hn`.
 
 ## Section Links in `AppNav.js`
 Now we need to update our AppNav component to use the new route that we added. We'll be using the Link component from the React Router, just like before, to facilitate internal navigation within our application. 
@@ -68,4 +81,4 @@ If these steps are completed successfully, the list of articles displayed on the
 Can you extend the search feature to work for the Home or any Section page? *HINT: Consider moving the search input to the AppNav component!*
 
 ## Extended Challenge #2
-There is a something bad about our current design for filtering articles. Currently, we're making an "API call" for **every** character that a user types into the search field. This may seem okay when our total data size is around 40 articles, but imagine what would happen if we had to serve 40,000 articles, or even worse, 40 million articles! Making so many API calls is not the best design, especially if it can be avoided. In this case, there should be a way to cut down the number of API calls we need to make, right? Think about all of the tools we have at our disposal... <ins>can you update the design of News Site so that the filtering functionality is retained, but our total API calls are reduced?</ins> (hint: use debouncing)
+There is something bad about our current design for filtering articles. Currently, we're making an "API call" for **every** character that a user types into the search field. This may seem okay when our total data size is around 40 articles, but imagine what would happen if we had to serve 40,000 articles, or even worse, 40 million articles! Making so many API calls is not the best design, especially if it can be avoided. In this case, there should be a way to cut down the number of API calls we need to make, right? Think about all of the tools we have at our disposal... <ins>can you update the design of News Site so that the filtering functionality is retained, but our total API calls are reduced?</ins> (hint: use debouncing)
