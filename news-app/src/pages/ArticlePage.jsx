@@ -1,10 +1,13 @@
-import {useParams} from 'react-router-dom'
+import {useParams, useOutletContext} from 'react-router'
 import Article from '../components/Article'
 
-function ArticlePage ({getArticleById}){
+function ArticlePage (){
 
+    const { getArticleById } = useOutletContext()
     let {articleID} = useParams()
-    const article = getArticleById(articleID-1)
+    const article = getArticleById(articleID)
+
+    if (!article) return <p>Article not found</p>
 
     return (
         <div>

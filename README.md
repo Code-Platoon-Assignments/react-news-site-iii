@@ -5,9 +5,9 @@
 2. Create article search feature on Home Page
 
 ## Initial Setup
-If you want to use your own code, go ahead and replace the `src` folder of this project with the `src` folder from your previous completed solution.
+If you want to use your own code, go ahead and replace the `src` folder of this project (`news-app/src`) with the `src` folder from your previous completed solution.
 
-Once you've copied over these files, run `npm install` followed by `npm run dev`. Verify that no errors appear in your browser console or terminal, and that your app functions the same as it did in the last challenge.
+The project lives in the `news-app` folder. `cd news-app`, then run `npm install` followed by `npm run dev` (React Router 8 needs Node 22.22+; the devcontainer uses Node 24). Verify that no errors appear in your browser console or terminal, and that your app functions the same as it did in the last challenge.
 
 ## The Section Page
 The Section Page will be used to display articles that belong to a specific section. The Section Page should be loaded when a user clicks on one of these options in the top navigation.
@@ -29,16 +29,16 @@ The route that should display a section page should be `/sections/:sectionName`,
 
 To accomplish this, you will need to:
 
-1. Create `SectionPage.js` inside of `src/pages`
-2. Create a new route (`/sections/:sectionName`) in App.js which points to the `SectionPage` component
-3. Obtain the `sectionName` from the url using `useParams()`
-4. Within `SectionPage.js`, utilize the `filter()` function to retrieve articles by a specific section, and store them in a state value (`articles`). Remember, we'll be using `useEffect` here, just like we did for our HomePage component. 
+1. Create `SectionPage.jsx` inside of `src/pages`
+2. Create a new route (`sections/:sectionName`) in `router.jsx`, as another child of the `App` route, which points to the `SectionPage` component
+3. Obtain the `sectionName` from the url using `useParams()`, and the articles from `App` using `useOutletContext()` (both from `react-router`), like `HomePage` does
+4. Within `SectionPage.jsx`, utilize the `filter()` function to retrieve articles by a specific section, and store them in a state value (`articles`). Remember, we'll be using `useEffect` here, just like we did for our HomePage component. 
 5. Pass `articles` into the `<ArticleList>` component, thereby rendering the `ArticleList` with articles for the desired section. 
 
-Attempt to navigate to **http://localhost:5173/#/sections/ask**, and confirm that this is showing you the appropriate content. We should only see news articles that have a tag value of `ask_hn`.
+Attempt to navigate to **http://localhost:5173/sections/ask**, and confirm that this is showing you the appropriate content. We should only see news articles that have a tag value of `ask_hn`.
 
-## Section Links in `AppNav.js`
-Now we need to update our AppNav component to use the new route that we added. We'll be using the Link component from the React Router, just like before, to facilitate internal navigation within our application. 
+## Section Links in `AppNav.jsx`
+Now we need to update our AppNav component to use the new route that we added. We'll be using the Link component from the React Router, just like before, to facilitate internal navigation within our application. (To keep the React Bootstrap styling, render the `Nav.Link` as a router `Link`: `<Nav.Link as={Link} to={...}>`.)
 
 Attempt to navigate from the home page to a section page, using the AppNav links. Verify that we are taken to the correct page and showing the appropriate content.
 
@@ -59,7 +59,7 @@ Let's add the ability to search for articles on the Home Page.  In order to acco
 3. Add a new state value to track the search text. 
 
 
-**HomePage.js**
+**HomePage.jsx**
 
 As mentioned above, you will want to add a text input to the `HomePage`.  Why not use React Bootstraps's nicely styled text input? (Remember that you'll need to import all of these new libraries from `react-bootstrap` at the top of your file!) Go ahead and put this above your `<ArticleList>` component:
 
@@ -70,8 +70,8 @@ As mentioned above, you will want to add a text input to the `HomePage`.  Why no
 </InputGroup>
 ```
 
-Note that we've provided the method that should be called from the `onChange` event - it's a class method called `handleSearch()`. 
-Create the `handleSearch()` class method on the `HomePage.js` component. Within this event handler, you should:
+Note that we've provided the function that should be called from the `onChange` event - it's called `handleSearch()`. 
+Create the `handleSearch()` function in the `HomePage.jsx` component. Within this event handler, you should:
 1. Extract the value of the text input and set it to a new state value (`searchTitle`)
 2. Update our useEffect() dependency array to include `searchTitle`
 
